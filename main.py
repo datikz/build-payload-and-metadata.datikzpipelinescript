@@ -4,4 +4,5 @@ import sys
 from src.buildPayload import buildPayload
 
 
-buildPayload(*sys.argv)
+def main():
+    buildPayload(*sys.argv)
