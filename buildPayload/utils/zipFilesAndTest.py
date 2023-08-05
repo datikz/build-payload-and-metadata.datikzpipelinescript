@@ -63,6 +63,8 @@ def zipFilesAndTest(usecase, usecasesInDir):
     os.system(f"find {temp_file_name} -name '*.md' -delete")
     if os.path.exists(nameFile):
         os.remove(f"./{nameFile}")
+    shutil.rmtree(f"{temp_file_name}/buildPayload/")
+    # Zip file creation
     os.system(f"cd {temp_file_name}; zip -rq ../{nameFile} *;zipinfo -h -t ../{nameFile};cd ..")
 
     if os.path.isdir(temp_file_name):
