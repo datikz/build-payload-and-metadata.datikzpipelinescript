@@ -1,11 +1,12 @@
 import json
 import os
+import sys
 
-from .utils.checkTagsAndCompleteInfo import checkTagsAndCompleteInfo
-from .utils.getStage import getStage
-from .utils.getYamlFn import getYaml
-from .utils.getInfoAndPaths import getInfoAndPaths
-from .utils.zipFilesAndTest import zipFilesAndTest
+from buildPayload.utils.checkTagsAndCompleteInfo import checkTagsAndCompleteInfo
+from buildPayload.utils.getStage import getStage
+from buildPayload.utils.getYamlFn import getYaml
+from buildPayload.utils.getInfoAndPaths import getInfoAndPaths
+from buildPayload.utils.zipFilesAndTest import zipFilesAndTest
 
 
 def buildPayload(*args, **_):
@@ -32,3 +33,11 @@ def buildPayload(*args, **_):
                 externalResourcesAPIGW, stage, config, *args)
             with open(f"{usecaseKeyname}.txt", "w", encoding="utf8") as metadataFile:
                 json.dump(usecase, metadataFile, indent=4)
+
+
+def main():
+    buildPayload(*sys.argv)
+
+
+if __name__ == "__main__":
+    main()

@@ -54,7 +54,7 @@ def zipFilesAndTest(usecase, usecasesInDir):
         if os.path.isdir(f"{temp_file_name}/{inte}"):
             shutil.rmtree(f"{temp_file_name}/{inte}")
         shutil.copytree(inte, f"{temp_file_name}/{inte}")
-    shutil.copytree("src/", temp_file_name + "/src/")
+    shutil.copytree("buildPayload/", temp_file_name + "/buildPayload/")
     shutil.copyfile(inise, f"{temp_file_name}/{inise}")
     os.system(f"cd {temp_file_name};{sys.executable} lambda_function.py && exit 1;cd ..")
     shutil.rmtree(temp_file_name + "/shared")

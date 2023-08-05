@@ -22,7 +22,10 @@ Sources of information
 The pipeline to call this script has the following code as standard
 
 ~~~python
-from {pipeline-standard-scripts.datikzpipeline.src}.main import main
+from
+
+{pipeline - standard - scripts.datikzpipeline.src}.main
+import main
 
 main()
 ~~~
