@@ -1,7 +1,7 @@
 """Main script for the execution of this task"""
 import sys
 
-from src.buildPayload import buildPayload
+from .src.buildPayload import buildPayload
 
 
 def main():

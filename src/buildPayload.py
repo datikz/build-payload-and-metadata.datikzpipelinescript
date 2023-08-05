@@ -1,11 +1,11 @@
 import json
 import os
 
-from src.utils.checkTagsAndCompleteInfo import checkTagsAndCompleteInfo
-from src.utils.getStage import getStage
-from src.utils.getYamlFn import getYaml
-from src.utils.getInfoAndPaths import getInfoAndPaths
-from src.utils.zipFilesAndTest import zipFilesAndTest
+from .utils.checkTagsAndCompleteInfo import checkTagsAndCompleteInfo
+from .utils.getStage import getStage
+from .utils.getYamlFn import getYaml
+from .utils.getInfoAndPaths import getInfoAndPaths
+from .utils.zipFilesAndTest import zipFilesAndTest
 
 
 def buildPayload(*args, **_):

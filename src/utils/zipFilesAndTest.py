@@ -3,9 +3,9 @@ import os
 import shutil
 import sys
 
-from src.utils.makeDirRecursively import mkdirR
+from .makeDirRecursively import mkdirR
 
-t = "temp"
+temp_file_name = "temp"
 inise = "initializerService.py"
 
 
@@ -31,34 +31,39 @@ def zipFilesAndTest(usecase, usecasesInDir):
     else:
         uc_base = uc_keyname
     python_f_name, handler_f_name = f'{uc_base}UseCase.py', f'{uc_base}Handler.py'
-    if os.path.isdir(t): shutil.rmtree(t)
-    mkdirR(f"{t}/shared")
-    os.system(f"cp -r ./shared/* ./{t}/shared/")
-    assert os.path.isdir(t + "/shared/framework")
-    shutil.copyfile(f"framework/lambdaAWS/{handler_f_name}", t + "/lambda_function.py")
+    if os.path.isdir(temp_file_name):
+        shutil.rmtree(temp_file_name)
+    mkdirR(f"{temp_file_name}/shared")
+    os.system(f"cp -r ./shared/* ./{temp_file_name}/shared/")
+    assert os.path.isdir(temp_file_name + "/shared/framework")
+    shutil.copyfile(f"framework/lambdaAWS/{handler_f_name}", temp_file_name + "/lambda_function.py")
     db = "database"
-    os.path.isdir(db) and shutil.copytree(db, f"{t}/{db}") and shutil.rmtree(
-        f"{t}/{db}/implementations/mongodb/settings/")
+    os.path.isdir(db) and shutil.copytree(db, f"{temp_file_name}/{db}") and shutil.rmtree(
+        f"{temp_file_name}/{db}/implementations/mongodb/settings/")
     coincidences = [x for x in usecasesInDir if x["file"] == python_f_name]
     if coincidences:
         path_bef = coincidences[0]["path"]
-        mkdirR(f"{t}/{path_bef}/")
-        shutil.copyfile(f"{path_bef}/{python_f_name}", f"{t}/{path_bef}/{python_f_name}")
-        shutil.copyfile(f"{path_bef}/__init__.py", f"{t}/{path_bef}/__init__.py")
-        shutil.copyfile(f"{path_bef}/__init__.py", f"{t}/__init__.py")
+        mkdirR(f"{temp_file_name}/{path_bef}/")
+        shutil.copyfile(f"{path_bef}/{python_f_name}", f"{temp_file_name}/{path_bef}/{python_f_name}")
+        shutil.copyfile(f"{path_bef}/__init__.py", f"{temp_file_name}/{path_bef}/__init__.py")
+        shutil.copyfile(f"{path_bef}/__init__.py", f"{temp_file_name}/__init__.py")
         shutil.copyfile(f"{path_bef}/{python_f_name}",
-                        f"{t}/{path_bef}/{python_f_name}")
+                        f"{temp_file_name}/{path_bef}/{python_f_name}")
     inte = "usecases/internal/"
     if os.path.isdir(inte):
-        if os.path.isdir(f"{t}/{inte}"): shutil.rmtree(f"{t}/{inte}")
-        shutil.copytree(inte, f"{t}/{inte}")
-    shutil.copytree("src/", t + "/src/")
-    shutil.copyfile(inise, f"{t}/{inise}")
-    os.system(f"cd {t};{sys.executable} lambda_function.py && exit 1;cd ..")
-    shutil.rmtree(t + "/shared")
-    os.system(f"rm -rf {t}/shared")
-    os.system(f'find {t} | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf')
-    os.system(f"find {t} -name '*.md' -delete")
+        if os.path.isdir(f"{temp_file_name}/{inte}"):
+            shutil.rmtree(f"{temp_file_name}/{inte}")
+        shutil.copytree(inte, f"{temp_file_name}/{inte}")
+    shutil.copytree("src/", temp_file_name + "/src/")
+    shutil.copyfile(inise, f"{temp_file_name}/{inise}")
+    os.system(f"cd {temp_file_name};{sys.executable} lambda_function.py && exit 1;cd ..")
+    shutil.rmtree(temp_file_name + "/shared")
+    os.system(f"rm -rf {temp_file_name}/shared")
+    os.system(f'find {temp_file_name} | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf')
+    os.system(f"find {temp_file_name} -name '*.md' -delete")
     if os.path.exists(nameFile):
         os.remove(f"./{nameFile}")
-    os.system(f"cd {t}; zip -rq ../{nameFile} *;zipinfo -h -t ../{nameFile};cd ..")
+    os.system(f"cd {temp_file_name}; zip -rq ../{nameFile} *;zipinfo -h -t ../{nameFile};cd ..")
+
+    if os.path.isdir(temp_file_name):
+        shutil.rmtree(temp_file_name)
