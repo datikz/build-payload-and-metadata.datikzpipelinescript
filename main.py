@@ -30,7 +30,7 @@ def buildPayload(*args, **_):
             zipFilesAndTest(usecase, usecases_in_dir)
             usecase = checkTagsAndCompleteInfo(
                 usecase, repoName, roleHttp, roleWS, internalAPIGW, customerAPIGW, customerAPIGWWS,
-                externalResourcesAPIGW, stage, config, *args)
+                externalResourcesAPIGW, stage, config, *args[10:])
             with open(f"{usecaseKeyname}.txt", "w", encoding="utf8") as metadataFile:
                 json.dump(usecase, metadataFile, indent=4)
 
