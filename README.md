@@ -8,7 +8,7 @@ Sources of information
 - Raw code
 - ./docs/info.yaml
 - Pipeline variables 
-- Repository information on github
+- Repository information on GitHub
 
 ## Pseudocode
 
@@ -19,15 +19,7 @@ Sources of information
 - Generate code packages for given framework
 - Generate file with metadata
 
-The pipeline to call this script has the following code as standard
 
-~~~python
-from
 
-{pipeline - standard - scripts.datikzpipeline.src}.main
-import main
-
-main()
-~~~
-
-Where `pipeline-standard-scripts.datikzpipeline.src` is to be renamed according to pipeline decision
+The pipeline performs the execution of the script by changing 
+the name of the main and executing everything through it.
