@@ -35,8 +35,8 @@ def checkTagsAndCompleteInfo(usecase, repoName, roleHttp, roleWS, internalAPIGW,
             pass
         else:
             raise Exception(f"\n{nok}There is no compatible api gateway")
-        usecase["envs"] = "".join(f",{k}='{v}'" for k, v in
-                                  {**usecase.get("envs", {}), **config.get("envs", {})}.items())
+    usecase["envs"] = "".join(f",{k}='{v}'" for k, v in
+                              {**usecase.get("envs", {}), **config.get("envs", {})}.items())
     usecase["tagstring"] = ",".join(f"{k}='{v}'" for k, v in tags.items())
     print("Tags:", tags)
     return usecase
