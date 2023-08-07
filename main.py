@@ -2,6 +2,7 @@ import json
 import os
 import sys
 
+from buildPayload.utils import ok
 from buildPayload.utils.checkTagsAndCompleteInfo import checkTagsAndCompleteInfo
 from buildPayload.utils.getStage import getStage
 from buildPayload.utils.getYamlFn import getYaml
@@ -26,9 +27,10 @@ def buildPayload(*args, **_):
         os.environ["USERNAME_DATABASE"] = "example_username"
         os.environ["URL_DATABASE"] = "example_url"
         for usecase in config["usecases"]:
-            if not usecase.get("active", True):
-                continue
             usecaseKeyname = usecase["keyname"]
+            if not usecase.get("active", True):
+                print(f"{ok}The {usecaseKeyname} use case is currently unactivated.")
+                continue
             zipFilesAndTest(usecase, usecases_in_dir)
             usecase = checkTagsAndCompleteInfo(
                 usecase, repoName, roleHttp, roleWS, internalAPIGW, customerAPIGW,
