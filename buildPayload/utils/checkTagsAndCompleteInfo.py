@@ -19,9 +19,12 @@ def checkTagsAndCompleteInfo(usecase, repoName, roleHttp, roleWS, internalAPIGW,
         tags[wayOfInvoke] = tags.get(wayOfInvoke, "false")
         assert tags[wayOfInvoke] in BOOLEAN_STANDARD, \
             f"{nok}{wayOfInvoke} is not among the standard values allowed for boolean values"
-    assert (0 < int(tags["http"] == "true") +
+    assert (int(tags["http"] == "true") +
             int(tags["ws"] == "true") + int(tags["queue"] == "true") < 2), \
         f"{nok}More than one of the properties http, ws or queue are true"
+    assert (int(tags["http"] == "true") +
+            int(tags["ws"] == "true") + int(tags["queue"] == "true") > 0), \
+        f"{nok}Of the http, queue or ws properties there must be one with true"
 
     usecase["role"] = roleHttp  # <- default role
     apigw = tags["apigw"]
