@@ -38,8 +38,12 @@ def zipFilesAndTest(usecase, usecasesInDir):
     assert os.path.isdir(temp_file_name + "/shared/framework")
     shutil.copyfile(f"framework/lambdaAWS/{handler_f_name}", temp_file_name + "/lambda_function.py")
     db = "database"
-    os.path.isdir(db) and shutil.copytree(db, f"{temp_file_name}/{db}") and shutil.rmtree(
-        f"{temp_file_name}/{db}/implementations/mongodb/settings/")
+    if os.path.isdir(db):
+        shutil.copytree(db, f"{temp_file_name}/{db}")
+
+        dbSettings = f"{temp_file_name}/{db}/implementations/mongodb/settings/"
+        if os.path.isdir(dbSettings):
+            shutil.rmtree(dbSettings)
     coincidences = [x for x in usecasesInDir if x["file"] == python_f_name]
     if coincidences:
         path_bef = coincidences[0]["path"]
