@@ -38,5 +38,4 @@ def checkTagsAndCompleteInfo(usecase, repoName, roleHttp, roleWS, internalAPIGW,
     usecase["envs"] = "".join(f",{k}='{v}'" for k, v in
                               {**usecase.get("envs", {}), **config.get("envs", {})}.items())
     usecase["tagstring"] = ",".join(f"{k}='{v}'" for k, v in tags.items())
-    print("Tags:", tags)
     return usecase

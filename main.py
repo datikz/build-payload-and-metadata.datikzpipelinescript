@@ -35,9 +35,6 @@ def buildPayload(*args, **_):
                 json.dump(usecase, metadataFile, indent=4)
 
 
-def main():
+if __name__ == "__main__":
     buildPayload(*sys.argv)
 
-
-if __name__ == "__main__":
-    main()

@@ -20,7 +20,7 @@ def getStage(branch):
         stage = "pdn"
     elif branch.startswith("release"):
         stage = "qa"
-    elif branch == "develop" or branch.startswith("feature/"):
+    elif branch == "develop":
         stage = "dev"
     else:
         raise Exception(f"The branch {branch} is invalid")
