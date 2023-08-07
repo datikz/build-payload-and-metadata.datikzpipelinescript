@@ -1,4 +1,5 @@
 """Implementation of function to obtain the stage of the repository"""
+from . import nok
 
 
 def getStage(branch):
@@ -23,5 +24,5 @@ def getStage(branch):
     elif branch == "develop":
         stage = "dev"
     else:
-        raise Exception(f"The branch {branch} is invalid")
+        raise Exception(f"{nok}The branch {branch} is invalid")
     return stage
