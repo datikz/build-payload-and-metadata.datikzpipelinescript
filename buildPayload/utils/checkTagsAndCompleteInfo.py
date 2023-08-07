@@ -10,6 +10,7 @@ def __boolToString(b):
 
 BOOLEAN_STANDARD = ["true", "false"]
 
+
 def checkTagsAndCompleteInfo(usecase, repoName, roleHttp, roleWS, internalAPIGW, customerAPIGW,
                              customerAPIGWWS, externalResourcesAPIGW, stage, config, *nextArgs):
     """Verify and complete the remaining tag information in the use case."""
@@ -56,6 +57,12 @@ def checkTagsAndCompleteInfo(usecase, repoName, roleHttp, roleWS, internalAPIGW,
 
     # Microservice
     tags["ms"] = repoName.split('.')[0]
+
+    # Stage
+    usecase["stage"] = stage
+
+    # AWS Layers
+    usecase["layers"] = " ".join(nextArgs)
 
     # Cacheable: if the operation does not change over time, many caches are allowed,
     # and it means that the operation will return the same if the same parameters are received.
