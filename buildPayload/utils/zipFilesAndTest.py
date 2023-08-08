@@ -44,6 +44,12 @@ def zipFilesAndTest(usecase, usecasesInDir):
         dbSettings = f"{temp_file_name}/{db}/implementations/mongodb/settings/"
         if os.path.isdir(dbSettings):
             shutil.rmtree(dbSettings)
+
+    # source
+    sourceDir = "src"
+    if os.path.isdir(sourceDir):
+        shutil.copytree(sourceDir, f"{temp_file_name}/{sourceDir}")
+
     coincidences = [x for x in usecasesInDir if x["file"] == python_f_name]
     if coincidences:
         path_bef = coincidences[0]["path"]
@@ -53,14 +59,16 @@ def zipFilesAndTest(usecase, usecasesInDir):
         shutil.copyfile(f"{path_bef}/__init__.py", f"{temp_file_name}/__init__.py")
         shutil.copyfile(f"{path_bef}/{python_f_name}",
                         f"{temp_file_name}/{path_bef}/{python_f_name}")
-    inte = "usecases/internal/"
-    if os.path.isdir(inte):
-        if os.path.isdir(f"{temp_file_name}/{inte}"):
-            shutil.rmtree(f"{temp_file_name}/{inte}")
-        shutil.copytree(inte, f"{temp_file_name}/{inte}")
-    shutil.copytree("buildPayload/", temp_file_name + "/buildPayload/")
+    internalFolder = "usecases/internal/"
+    if os.path.isdir(internalFolder):
+        if os.path.isdir(f"{temp_file_name}/{internalFolder}"):
+            shutil.rmtree(f"{temp_file_name}/{internalFolder}")
+        shutil.copytree(internalFolder, f"{temp_file_name}/{internalFolder}")
     shutil.copyfile(inise, f"{temp_file_name}/{inise}")
+
+    # Executing lambda function
     os.system(f"cd {temp_file_name};{sys.executable} lambda_function.py && exit 1;cd ..")
+
     shutil.rmtree(temp_file_name + "/shared")
     os.system(f"rm -rf {temp_file_name}/shared")
     os.system(f'find {temp_file_name} | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf')
