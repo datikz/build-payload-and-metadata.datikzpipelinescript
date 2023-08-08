@@ -64,6 +64,7 @@ def zipFilesAndTest(usecase, usecasesInDir):
         if os.path.isdir(f"{temp_file_name}/{internalFolder}"):
             shutil.rmtree(f"{temp_file_name}/{internalFolder}")
         shutil.copytree(internalFolder, f"{temp_file_name}/{internalFolder}")
+    # shutil.copytree("buildPayload/", temp_file_name + "/buildPayload/")
     shutil.copyfile(inise, f"{temp_file_name}/{inise}")
 
     # Executing lambda function
@@ -75,7 +76,7 @@ def zipFilesAndTest(usecase, usecasesInDir):
     os.system(f"find {temp_file_name} -name '*.md' -delete")
     if os.path.exists(nameFile):
         os.remove(f"./{nameFile}")
-    shutil.rmtree(f"{temp_file_name}/buildPayload/")
+    # shutil.rmtree(f"{temp_file_name}/buildPayload/")
     # Zip file creation
     os.system(f"cd {temp_file_name}; zip -rq ../{nameFile} *;zipinfo -h -t ../{nameFile};cd ..")
 
