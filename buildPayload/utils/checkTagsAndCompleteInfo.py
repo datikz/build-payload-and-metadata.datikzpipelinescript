@@ -34,6 +34,9 @@ def checkTagsAndCompleteInfo(usecase, repoName, roleHttp, roleWS, internalAPIGW,
         assert usecase["method"] in ["GET", "DELETE", "UPDATE", "POST"]
         assert "route" in usecase
         usecase["role"] = roleHttp
+        # Map if its need
+        if usecase["method"] == "UPDATE":
+            usecase["method"] = "PUT"
 
         if apigw == "internal":
             usecase["apigateway"] = internalAPIGW
